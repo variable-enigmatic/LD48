@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Enemy01/enemy_01.gltf" type="PackedScene" id=1]
+
+[node name="enemy_01" type="RigidBody"]
+
+[node name="enemy_01" parent="." instance=ExtResource( 1 )]
