@@ -34,5 +34,5 @@ func register_player(reg_player):
 func register_world(reg_world):
 	world_node = reg_world
 	
-func register_wormhole(reg_wormhole):
-	wormhole_node = reg_wormhole
+#func register_wormhole(reg_wormhole):
+	#wormhole_node = reg_wormhole

@@ -2,8 +2,8 @@ extends Spatial
 
 var current_wormhole
 
-func _ready():
-	Globals.register_wormhole(self)
+#func _ready():
+#	Globals.register_wormhole(self)
 
 func _on_wormhole_tree_entered():
 	current_wormhole = true
