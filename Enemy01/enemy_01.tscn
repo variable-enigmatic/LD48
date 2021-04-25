@@ -1,12 +1,21 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Enemy01/enemy_01.gltf" type="PackedScene" id=1]
 [ext_resource path="res://Enemy01/enemy_01.gd" type="Script" id=2]
 [ext_resource path="res://Enemy01/rotation_target.gd" type="Script" id=3]
 
 [sub_resource type="SphereShape" id=1]
+radius = 0.719549
+
+[sub_resource type="SphereShape" id=2]
+radius = 3.42583
 
 [node name="enemy_01" type="RigidBody"]
+collision_layer = 3
+collision_mask = 3
+mass = 2.04082
+contacts_reported = 5
+contact_monitor = true
 script = ExtResource( 2 )
 
 [node name="enemy_01" parent="." instance=ExtResource( 1 )]
@@ -20,3 +29,12 @@ script = ExtResource( 3 )
 [node name="CSGSphere" type="CSGSphere" parent="rotation_target"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
 radius = 0.203172
+
+[node name="Area" type="Area" parent="."]
+gravity_vec = Vector3( 0, 0, 0 )
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+shape = SubResource( 2 )
+[connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]

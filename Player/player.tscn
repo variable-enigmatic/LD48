@@ -9,21 +9,21 @@
 [ext_resource path="res://Player/AnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://Player/weapon_slot.gd" type="Script" id=8]
 
-[sub_resource type="AnimationNodeOneShot" id=3]
-
-[sub_resource type="AnimationNodeAnimation" id=1]
-animation = "basis"
+[sub_resource type="AnimationNodeOneShot" id=1]
 
 [sub_resource type="AnimationNodeAnimation" id=2]
+animation = "basis"
+
+[sub_resource type="AnimationNodeAnimation" id=3]
 animation = "dive"
 
 [sub_resource type="AnimationNodeBlendTree" id=4]
 graph_offset = Vector2( -484, -50.75 )
-nodes/OneShot/node = SubResource( 3 )
+nodes/OneShot/node = SubResource( 1 )
 nodes/OneShot/position = Vector2( -80, 100 )
-nodes/basis/node = SubResource( 1 )
+nodes/basis/node = SubResource( 2 )
 nodes/basis/position = Vector2( -340, 60 )
-nodes/dive/node = SubResource( 2 )
+nodes/dive/node = SubResource( 3 )
 nodes/dive/position = Vector2( -320, 200 )
 nodes/output/position = Vector2( 280, 100 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "basis", "OneShot", 1, "dive" ]
