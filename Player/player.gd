@@ -18,6 +18,8 @@ func player_speed():
 
 func _process(delta):
 	
+
+	
 	
 	if Input.is_action_pressed("ui_left"):
 		player_roll_target.rotation_degrees.z = 60

@@ -15,6 +15,10 @@ var player_energy_recharge = 0.01
 var player_node
 
 
+
+#
+#var current_weapon = 
+
 # World Globals
 
 var changing_floors = false

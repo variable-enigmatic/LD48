@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.gltf" type="PackedScene" id=2]
@@ -6,8 +6,29 @@
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Player/hud.gd" type="Script" id=5]
 [ext_resource path="res://DevMenu/dev_menu.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Player/AnimationTree.gd" type="Script" id=7]
+[ext_resource path="res://Player/weapon_slot.gd" type="Script" id=8]
 
-[sub_resource type="SphereShape" id=1]
+[sub_resource type="AnimationNodeOneShot" id=3]
+
+[sub_resource type="AnimationNodeAnimation" id=1]
+animation = "basis"
+
+[sub_resource type="AnimationNodeAnimation" id=2]
+animation = "dive"
+
+[sub_resource type="AnimationNodeBlendTree" id=4]
+graph_offset = Vector2( -484, -50.75 )
+nodes/OneShot/node = SubResource( 3 )
+nodes/OneShot/position = Vector2( -80, 100 )
+nodes/basis/node = SubResource( 1 )
+nodes/basis/position = Vector2( -340, 60 )
+nodes/dive/node = SubResource( 2 )
+nodes/dive/position = Vector2( -320, 200 )
+nodes/output/position = Vector2( 280, 100 )
+node_connections = [ "output", 0, "OneShot", "OneShot", 0, "basis", "OneShot", 1, "dive" ]
+
+[sub_resource type="SphereShape" id=5]
 radius = 0.557761
 
 [node name="player" type="RigidBody"]
@@ -29,6 +50,13 @@ script = ExtResource( 3 )
 
 [node name="player" parent="rotation/roll" instance=ExtResource( 2 )]
 
+[node name="AnimationTree" type="AnimationTree" parent="rotation/roll/player"]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/OneShot/active = false
+script = ExtResource( 7 )
+
 [node name="roll_target" type="Position3D" parent="rotation"]
 
 [node name="camera_location" type="Position3D" parent="."]
@@ -38,9 +66,10 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 14.3, 25
 projection = 1
 size = 20.0
 near = 0.01
-far = 100000.0
+far = 10000.0
 
 [node name="weapon_slot" type="Position3D" parent="."]
+script = ExtResource( 8 )
 
 [node name="hud" type="Control" parent="."]
 anchor_right = 1.0
@@ -133,6 +162,8 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 5 )
 
 [node name="dev_menu" parent="." instance=ExtResource( 6 )]
+
+[editable path="rotation/roll/player"]
