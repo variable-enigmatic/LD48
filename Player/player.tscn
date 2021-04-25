@@ -1,9 +1,14 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.gltf" type="PackedScene" id=2]
 [ext_resource path="res://Player/roll.gd" type="Script" id=3]
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Player/hud.gd" type="Script" id=5]
+[ext_resource path="res://DevMenu/dev_menu.tscn" type="PackedScene" id=6]
+
+[sub_resource type="SphereShape" id=1]
+radius = 0.557761
 
 [node name="player" type="RigidBody"]
 axis_lock_linear_y = true
@@ -12,6 +17,10 @@ axis_lock_angular_y = true
 axis_lock_angular_z = true
 linear_damp = 0.0
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 349.0 ],
+"_edit_vertical_guides_": [ 9.5 ]
+}
 
 [node name="rotation" type="Position3D" parent="."]
 
@@ -29,22 +38,101 @@ transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 14.3, 25
 projection = 1
 size = 20.0
 near = 0.01
-far = 1000.0
+far = 100000.0
 
 [node name="weapon_slot" type="Position3D" parent="."]
 
 [node name="hud" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="hud"]
-margin_right = 86.0
-margin_bottom = 14.0
+[node name="energy_label" type="Label" parent="hud"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 9.72046
+margin_top = -23.1937
+margin_right = 42.7205
+margin_bottom = -9.19373
 custom_fonts/font = ExtResource( 4 )
-text = "Testing one two three"
+text = "Energy:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="energy" type="Label" parent="hud"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 39.9746
+margin_top = -22.76
+margin_right = 79.9746
+margin_bottom = -8.76001
+custom_fonts/font = ExtResource( 4 )
+text = "null"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="speed" type="Label" parent="hud"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 39.5169
+margin_top = -41.5228
+margin_right = 74.5169
+margin_bottom = -27.5228
+custom_fonts/font = ExtResource( 4 )
+text = "null"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="speed_label" type="Label" parent="hud"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 9.97169
+margin_top = -42.1479
+margin_right = 37.9717
+margin_bottom = -28.1479
+custom_fonts/font = ExtResource( 4 )
+text = "Speed:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="floor_count_label" type="Label" parent="hud"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -43.3745
+margin_top = -22.5085
+margin_right = -24.3745
+margin_bottom = -8.50848
+custom_fonts/font = ExtResource( 4 )
+text = "Floor:"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="floor_count" type="Label" parent="hud"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -22.0
+margin_top = -23.0
+margin_right = -10.0
+margin_bottom = -9.0
+custom_fonts/font = ExtResource( 4 )
+text = "null"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 1 )
+
+[node name="dev_menu" parent="." instance=ExtResource( 6 )]

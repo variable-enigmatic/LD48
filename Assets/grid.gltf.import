@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/grid.gltf-2478315e552ddec5adf19a4c4725dc2c.scn"
+path="res://.import/grid.gltf-fdd530beb6d11a8afdc05478c691cc66.scn"
 
 [deps]
 
-source_file="res://grid.gltf"
-dest_files=[ "res://.import/grid.gltf-2478315e552ddec5adf19a4c4725dc2c.scn" ]
+source_file="res://Assets/grid.gltf"
+dest_files=[ "res://.import/grid.gltf-fdd530beb6d11a8afdc05478c691cc66.scn" ]
 
 [params]
 
