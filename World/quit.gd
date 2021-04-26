@@ -1,4 +1,4 @@
-extends RigidBody
+extends Control
 
 
 # Declare member variables here. Examples:
@@ -14,11 +14,3 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
-
-
-func _on_projectile_one_body_entered(body):
-	queue_free()
-
-
-func _on_lifespan_timeout():
-	queue_free()

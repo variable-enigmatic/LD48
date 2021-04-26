@@ -37,7 +37,7 @@ margin_top = -129.971
 margin_right = 150.63
 margin_bottom = -64.9713
 custom_fonts/font = ExtResource( 3 )
-text = "A game created in two days for Ludum Dare 48.
+text = "A game created in within 72 hours for Ludum Dare 48.
 Arrows and \"Z\" to pilot and fire.
 \"F\" to toggle fullscreen.
 \"Enter\" to begin."

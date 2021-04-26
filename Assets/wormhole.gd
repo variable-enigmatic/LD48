@@ -1,9 +1,9 @@
 extends Spatial
 
-func ready():
+func _ready():
 	
 	Globals.register_wormhole(self)
-
+	
 func _process(delta):
 
 	rotate_y(0.3)

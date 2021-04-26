@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.gltf" type="PackedScene" id=2]
@@ -22,7 +22,7 @@ animation = "basis"
 animation = "dive"
 
 [sub_resource type="AnimationNodeBlendTree" id=6]
-graph_offset = Vector2( -468, 67.5 )
+graph_offset = Vector2( -383, -69.5 )
 nodes/Animation/node = SubResource( 1 )
 nodes/Animation/position = Vector2( 0, 240 )
 nodes/Dive/node = SubResource( 2 )
@@ -34,7 +34,10 @@ nodes/basis/position = Vector2( -340, 0 )
 nodes/dive/node = SubResource( 5 )
 nodes/dive/position = Vector2( -340, 160 )
 nodes/output/position = Vector2( 460, 140 )
-node_connections = [ "output", 0, "Spawn", "Spawn", 0, "Dive", "Spawn", 1, "Animation", "Dive", 0, "basis", "Dive", 1, "dive" ]
+node_connections = [ "output", 0, "Spawn", "Dive", 0, "basis", "Dive", 1, "dive", "Spawn", 0, "Dive", "Spawn", 1, "Animation" ]
+
+[sub_resource type="Theme" id=8]
+default_font = ExtResource( 4 )
 
 [sub_resource type="SphereShape" id=7]
 radius = 0.557761
@@ -42,6 +45,8 @@ radius = 0.557761
 [node name="player" type="RigidBody" groups=[
 "player",
 ]]
+contacts_reported = 2
+contact_monitor = true
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -73,7 +78,11 @@ script = ExtResource( 7 )
 [node name="camera_target" type="Position3D" parent="rotation"]
 
 [node name="CSGSphere" type="CSGSphere" parent="rotation/camera_target"]
+visible = false
 radius = 0.161157
+
+[node name="projectile_spawn" type="Position3D" parent="rotation"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.59694 )
 
 [node name="weapon_slot" type="Position3D" parent="."]
 script = ExtResource( 8 )
@@ -89,51 +98,12 @@ __meta__ = {
 [node name="energy_label" type="Label" parent="hud"]
 anchor_top = 1.0
 anchor_bottom = 1.0
-margin_left = 9.72046
-margin_top = -23.1937
-margin_right = 42.7205
-margin_bottom = -9.19373
+margin_left = 13.7295
+margin_top = -23.3849
+margin_right = 46.7295
+margin_bottom = -9.38489
 custom_fonts/font = ExtResource( 4 )
 text = "Energy:"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="energy" type="Label" parent="hud"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 39.9746
-margin_top = -22.76
-margin_right = 79.9746
-margin_bottom = -8.76001
-custom_fonts/font = ExtResource( 4 )
-text = "null"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="speed" type="Label" parent="hud"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 39.5169
-margin_top = -41.5228
-margin_right = 74.5169
-margin_bottom = -27.5228
-custom_fonts/font = ExtResource( 4 )
-text = "null"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="speed_label" type="Label" parent="hud"]
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = 9.97169
-margin_top = -42.1479
-margin_right = 37.9717
-margin_bottom = -28.1479
-custom_fonts/font = ExtResource( 4 )
-text = "Speed:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -148,7 +118,7 @@ margin_top = -22.5085
 margin_right = -24.3745
 margin_bottom = -8.50848
 custom_fonts/font = ExtResource( 4 )
-text = "Floor:"
+text = "Level:"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -168,7 +138,49 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="energy_bar" type="ProgressBar" parent="hud"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 43.0
+margin_top = -21.0
+margin_right = 79.0
+margin_bottom = -7.0
+theme = SubResource( 8 )
+custom_fonts/font = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="wormhole_status" type="Label" parent="hud"]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -59.1892
+margin_top = -19.8108
+margin_right = -47.1892
+margin_bottom = -5.81079
+custom_fonts/font = ExtResource( 4 )
+text = "null"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="CollisionShape" type="CollisionShape" parent="."]
 shape = SubResource( 7 )
+
+[node name="energy_recharge_timer" type="Timer" parent="."]
+wait_time = 0.068
+autostart = true
+
+[node name="wormhole_gravity" type="Position3D" parent="."]
+
+[node name="CSGSphere" type="CSGSphere" parent="wormhole_gravity"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.7085 )
+visible = false
+radius = 0.207513
+[connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
+[connection signal="timeout" from="energy_recharge_timer" to="." method="_on_energy_recharge_timer_timeout"]
 
 [editable path="rotation/roll/player"]

@@ -8,16 +8,20 @@
 radius = 0.719549
 
 [sub_resource type="SphereShape" id=2]
-radius = 3.42583
+radius = 2.21137
 
 [node name="enemy_01" type="RigidBody" groups=[
 "enemies",
 ]]
-collision_layer = 3
-collision_mask = 3
+collision_layer = 6
+collision_mask = 6
 mass = 2.04082
-contacts_reported = 5
+contacts_reported = 2
 contact_monitor = true
+axis_lock_linear_y = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
 script = ExtResource( 2 )
 
 [node name="enemy_01" parent="." instance=ExtResource( 1 )]
@@ -29,7 +33,7 @@ shape = SubResource( 1 )
 script = ExtResource( 3 )
 
 [node name="CSGSphere" type="CSGSphere" parent="rotation_target"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.74961 )
 visible = false
 radius = 0.203172
 
@@ -40,5 +44,9 @@ collision_mask = 3
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 2 )
+
+[node name="fire_shot_timer" type="Timer" parent="."]
+autostart = true
 [connection signal="body_entered" from="." to="." method="_on_enemy_01_body_entered"]
 [connection signal="area_entered" from="Area" to="." method="_on_Area_area_entered"]
+[connection signal="timeout" from="fire_shot_timer" to="." method="_on_fire_shot_timer_timeout"]

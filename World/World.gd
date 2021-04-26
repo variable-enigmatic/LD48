@@ -23,7 +23,7 @@ func start_wormhole_timer():
 		spawn_wormhole_timer.connect("timeout", self, "_on_spawn_wormhole_timer_timeout")
 		add_child(spawn_wormhole_timer)
 		spawn_wormhole_timer.set_one_shot(true)
-		spawn_wormhole_timer.set_wait_time(5)
+		spawn_wormhole_timer.set_wait_time(10)
 		spawn_wormhole_timer.start()
 
 func new_floor():
@@ -42,8 +42,8 @@ func _on_spawn_wormhole_timer_timeout():
 
 	randomize()
 
-	var wormhole_x_range = Vector2(-70,70)
-	var wormhole_y_range = Vector2(-70,70)
+	var wormhole_x_range = Vector2(-34,34)
+	var wormhole_y_range = Vector2(-34,34)
 
 	var wormhole_random_x = randi() % int(wormhole_x_range[1]-wormhole_x_range[0]) + 1 + wormhole_x_range[0] 
 	var wormhole_random_y = randi() % int(wormhole_y_range[1]-wormhole_y_range[0]) + 1 + wormhole_y_range[0]
@@ -55,6 +55,8 @@ func _on_spawn_wormhole_timer_timeout():
 	wormhole_spawn.global_transform.origin = Vector3(wormhole_random_x,0,wormhole_random_y)
 	
 	spawn_wormhole_timer.queue_free()
+	
+	Globals.wormhole_opened = true
 	
 func _ready():
 	
@@ -80,7 +82,7 @@ func _process(delta):
 		start_wormhole_timer()
 	
 	if Globals.change_floors:
-		
+		Globals.wormhole_opened = false
 		Globals.change_floors = false
 		Globals.changing_floors = true
 		Globals.floor_number = Globals.floor_number -1
