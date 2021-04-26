@@ -1,3 +1,52 @@
-[gd_scene format=2]
+[gd_scene load_steps=4 format=2]
 
-[node name="Node2D" type="Node2D"]
+[ext_resource path="res://titlefont.tres" type="DynamicFont" id=1]
+[ext_resource path="res://font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Main/Main.gd" type="Script" id=4]
+
+[node name="title_menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -194.945
+margin_top = 72.9849
+margin_right = 194.055
+margin_bottom = 156.985
+custom_fonts/font = ExtResource( 1 )
+text = "KATAVASI"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="text" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -152.37
+margin_top = -129.971
+margin_right = 150.63
+margin_bottom = -64.9713
+custom_fonts/font = ExtResource( 3 )
+text = "A game created in two days for Ludum Dare 48.
+Arrows and \"Z\" to pilot and fire.
+\"F\" to toggle fullscreen.
+\"Enter\" to begin."
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="title_menu" type="Node2D" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+[connection signal="tween_all_completed" from="Tween" to="." method="_on_Tween_tween_all_completed"]

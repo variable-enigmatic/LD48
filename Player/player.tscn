@@ -1,37 +1,47 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.gltf" type="PackedScene" id=2]
 [ext_resource path="res://Player/roll.gd" type="Script" id=3]
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Player/hud.gd" type="Script" id=5]
-[ext_resource path="res://DevMenu/dev_menu.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Player/AnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://Player/weapon_slot.gd" type="Script" id=8]
 
-[sub_resource type="AnimationNodeOneShot" id=1]
+[sub_resource type="AnimationNodeAnimation" id=1]
+animation = "spawn"
 
-[sub_resource type="AnimationNodeAnimation" id=2]
+[sub_resource type="AnimationNodeOneShot" id=2]
+
+[sub_resource type="AnimationNodeOneShot" id=3]
+
+[sub_resource type="AnimationNodeAnimation" id=4]
 animation = "basis"
 
-[sub_resource type="AnimationNodeAnimation" id=3]
+[sub_resource type="AnimationNodeAnimation" id=5]
 animation = "dive"
 
-[sub_resource type="AnimationNodeBlendTree" id=4]
-graph_offset = Vector2( -484, -50.75 )
-nodes/OneShot/node = SubResource( 1 )
-nodes/OneShot/position = Vector2( -80, 100 )
-nodes/basis/node = SubResource( 2 )
-nodes/basis/position = Vector2( -340, 60 )
-nodes/dive/node = SubResource( 3 )
-nodes/dive/position = Vector2( -320, 200 )
-nodes/output/position = Vector2( 280, 100 )
-node_connections = [ "output", 0, "OneShot", "OneShot", 0, "basis", "OneShot", 1, "dive" ]
+[sub_resource type="AnimationNodeBlendTree" id=6]
+graph_offset = Vector2( -468, 67.5 )
+nodes/Animation/node = SubResource( 1 )
+nodes/Animation/position = Vector2( 0, 240 )
+nodes/Dive/node = SubResource( 2 )
+nodes/Dive/position = Vector2( -80, 100 )
+nodes/Spawn/node = SubResource( 3 )
+nodes/Spawn/position = Vector2( 200, 80 )
+nodes/basis/node = SubResource( 4 )
+nodes/basis/position = Vector2( -340, 0 )
+nodes/dive/node = SubResource( 5 )
+nodes/dive/position = Vector2( -340, 160 )
+nodes/output/position = Vector2( 460, 140 )
+node_connections = [ "output", 0, "Spawn", "Spawn", 0, "Dive", "Spawn", 1, "Animation", "Dive", 0, "basis", "Dive", 1, "dive" ]
 
-[sub_resource type="SphereShape" id=5]
+[sub_resource type="SphereShape" id=7]
 radius = 0.557761
 
-[node name="player" type="RigidBody"]
+[node name="player" type="RigidBody" groups=[
+"player",
+]]
 axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
@@ -51,22 +61,19 @@ script = ExtResource( 3 )
 [node name="player" parent="rotation/roll" instance=ExtResource( 2 )]
 
 [node name="AnimationTree" type="AnimationTree" parent="rotation/roll/player"]
-tree_root = SubResource( 4 )
+tree_root = SubResource( 6 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
-parameters/OneShot/active = false
+parameters/Dive/active = false
+parameters/Spawn/active = false
 script = ExtResource( 7 )
 
 [node name="roll_target" type="Position3D" parent="rotation"]
 
-[node name="camera_location" type="Position3D" parent="."]
+[node name="camera_target" type="Position3D" parent="rotation"]
 
-[node name="Camera" type="Camera" parent="camera_location"]
-transform = Transform( 1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 14.3, 25 )
-projection = 1
-size = 20.0
-near = 0.01
-far = 10000.0
+[node name="CSGSphere" type="CSGSphere" parent="rotation/camera_target"]
+radius = 0.161157
 
 [node name="weapon_slot" type="Position3D" parent="."]
 script = ExtResource( 8 )
@@ -162,8 +169,6 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 5 )
-
-[node name="dev_menu" parent="." instance=ExtResource( 6 )]
+shape = SubResource( 7 )
 
 [editable path="rotation/roll/player"]

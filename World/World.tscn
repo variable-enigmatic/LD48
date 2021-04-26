@@ -4,8 +4,10 @@
 [ext_resource path="res://World/FloorInstance.tscn" type="PackedScene" id=3]
 
 [node name="World" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -100, 0 )
 script = ExtResource( 1 )
 
 [node name="world_tween" type="Tween" parent="."]
 
 [node name="FloorInstance" parent="." instance=ExtResource( 3 )]
+[connection signal="tween_all_completed" from="world_tween" to="." method="_on_world_tween_tween_all_completed"]

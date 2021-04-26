@@ -9,14 +9,14 @@ var timer
 func enemy_01_speed():
 	return sqrt(pow(linear_velocity.z, 2) + pow(linear_velocity.x, 2))
 	
-func _time_out():
-	pass
-	
-	
 func _process(delta):
 	
 	$"enemy_01".rotation_degrees.y += 1
 	
+	if life < 1:
+		
+	#	print("Kill")
+		queue_free()
 
 func _physics_process(delta):
 
@@ -25,11 +25,8 @@ func _physics_process(delta):
 	if speed < top_speed:
 		add_central_force($"rotation_target".transform.basis.z * -1 * thrust * delta)
 
-		
+func _on_enemy_01_body_entered(body):
+	
+	if body.is_in_group("projectiles"):
+		life = life -30
 
-#func _on_Area_area_entered(area):
-#	print("HIT")
-
-
-func _on_Area_body_entered(body):
-	print("HIT")

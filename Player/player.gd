@@ -5,16 +5,19 @@ var player_direction = -1
 
 onready var player_rotation = get_node("rotation")
 onready var player_roll_target = get_node("rotation/roll_target")
+onready var camera_target = get_node("rotation/camera_target")
 
 func _ready():
+	
 	Globals.register_player(self)
 	
 func stop_player():
+	
 	linear_velocity = Vector3.ZERO
 	
 func player_speed():
+	
 	return sqrt(pow(linear_velocity.z, 2) + pow(linear_velocity.x, 2))
-
 
 func _process(delta):
 	
@@ -32,7 +35,6 @@ func _process(delta):
 	if Input.is_action_just_released("ui_right"):
 		player_roll_target.rotation_degrees.z = 0
 		
-	
 func _physics_process(delta):
 	
 	var player_speed = player_speed()
@@ -43,5 +45,6 @@ func _physics_process(delta):
 	if Input.is_action_pressed("ui_down"):
 		add_central_force(player_rotation.transform.basis.z * -player_direction * Globals.player_thrust * delta)
 		
+	camera_target.translation.z = -player_speed/3
 	
 	
