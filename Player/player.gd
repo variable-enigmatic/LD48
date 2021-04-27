@@ -77,7 +77,7 @@ func _physics_process(delta):
 			player_explosion.global_transform.origin = self.global_transform.origin
 			player_explosion.get_node("AnimationPlayer").play("player_explosion")
 			
-			self.queue_free()
+			queue_free()
 			
 
 func _on_energy_recharge_timer_timeout():
@@ -95,4 +95,7 @@ func _on_player_body_entered(body):
 		
 		Globals.camera_shake = true
 		
+		Globals.screen_red = true
+		
+		$"hit".play()
 		

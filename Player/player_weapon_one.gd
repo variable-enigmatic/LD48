@@ -8,7 +8,7 @@ onready var rot_node = get_node("../../rotation/")
 
 onready var spawn_node = get_node("../../rotation/projectile_spawn")
 
-export var velocity = -100
+export var velocity = -20
 
 func _ready():
 	pass 
@@ -16,6 +16,8 @@ func _ready():
 func _process(delta):
 	
 	if Input.is_action_just_pressed("ui_fire"):
+		
+		$"fire".play()
 		
 		Globals.player_energy -= 5
 		

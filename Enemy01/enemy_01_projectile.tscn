@@ -37,6 +37,7 @@ axis_lock_linear_y = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+linear_damp = 0.0
 script = ExtResource( 1 )
 
 [node name="Icosphere" type="MeshInstance" parent="."]

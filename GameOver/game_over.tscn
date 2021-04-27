@@ -20,9 +20,9 @@ __meta__ = {
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -222.823
-margin_top = 33.6586
+margin_top = 161.659
 margin_right = 225.177
-margin_bottom = 117.659
+margin_bottom = 245.659
 custom_fonts/font = ExtResource( 1 )
 text = "GAME OVER"
 align = 1
@@ -31,17 +31,17 @@ __meta__ = {
 }
 
 [node name="text" type="Label" parent="."]
+visible = false
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = -63.0
-margin_top = -60.3665
-margin_right = 63.0
-margin_bottom = -29.3665
+margin_left = -65.6697
+margin_top = -251.249
+margin_right = 60.3303
+margin_bottom = -220.249
 custom_fonts/font = ExtResource( 2 )
-text = "Press \"R\"  to restart.
-Press \"Q\" or \"ESC\" to quit."
+text = "Press \"R\" to reset."
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false

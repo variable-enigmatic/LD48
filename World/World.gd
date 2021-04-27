@@ -17,6 +17,8 @@ var spawn_wormhole_timer
 
 var change_floors_timer
 
+var down_level_audio_played = false
+
 func start_wormhole_timer():
 	
 		spawn_wormhole_timer = Timer.new()
@@ -54,6 +56,8 @@ func _on_spawn_wormhole_timer_timeout():
 	
 	wormhole_spawn.global_transform.origin = Vector3(wormhole_random_x,0,wormhole_random_y)
 	
+	$"../wormhole_open".play()
+	
 	spawn_wormhole_timer.queue_free()
 	
 	Globals.wormhole_opened = true
@@ -82,6 +86,7 @@ func _process(delta):
 		start_wormhole_timer()
 	
 	if Globals.change_floors:
+		Globals.enemy_start_count += 2
 		Globals.wormhole_opened = false
 		Globals.change_floors = false
 		Globals.changing_floors = true
@@ -89,6 +94,10 @@ func _process(delta):
 		
 		var strt_loc = self.global_transform.origin
 		current_floor_loc = current_floor_loc - Vector3(0,floor_distance,0)
+		
+		if !down_level_audio_played:
+			down_level_audio_played = false
+			$"../down_level".play()
 		
 		$"world_tween".interpolate_property(self, "translation", strt_loc, -current_floor_loc, tween_floors_time, Tween.TRANS_BACK, Tween.EASE_IN_OUT)
 		$"world_tween".start()

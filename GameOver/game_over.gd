@@ -11,6 +11,6 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("ui_restart"):
 		
+		get_tree().change_scene("res://reload.tscn")
+
 		queue_free()
-		
-		get_tree().reload_current_scene()

@@ -10,7 +10,7 @@ func _process(delta):
 
 	
 	if Globals.wormhole_opened:
-		$wormhole_status.text = "WORMHOLE OPENED"
+		$wormhole_status.text = "WORMHOLE OPENED!"
 		
 	elif !Globals.wormhole_opened:
 		$wormhole_status.text = "Wormhole Closed"

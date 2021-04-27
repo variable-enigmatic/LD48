@@ -1,10 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/player.gd" type="Script" id=1]
 [ext_resource path="res://Player/player.gltf" type="PackedScene" id=2]
 [ext_resource path="res://Player/roll.gd" type="Script" id=3]
 [ext_resource path="res://font.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Player/hud.gd" type="Script" id=5]
+[ext_resource path="res://Player/hit.wav" type="AudioStream" id=6]
 [ext_resource path="res://Player/AnimationTree.gd" type="Script" id=7]
 [ext_resource path="res://Player/weapon_slot.gd" type="Script" id=8]
 
@@ -36,10 +37,16 @@ nodes/dive/position = Vector2( -340, 160 )
 nodes/output/position = Vector2( 460, 140 )
 node_connections = [ "output", 0, "Spawn", "Dive", 0, "basis", "Dive", 1, "dive", "Spawn", 0, "Dive", "Spawn", 1, "Animation" ]
 
-[sub_resource type="Theme" id=8]
+[sub_resource type="Theme" id=7]
 default_font = ExtResource( 4 )
 
-[sub_resource type="SphereShape" id=7]
+[sub_resource type="StyleBoxFlat" id=9]
+bg_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="StyleBoxFlat" id=10]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="SphereShape" id=8]
 radius = 0.557761
 
 [node name="player" type="RigidBody" groups=[
@@ -96,12 +103,14 @@ __meta__ = {
 }
 
 [node name="energy_label" type="Label" parent="hud"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 13.7295
-margin_top = -23.3849
-margin_right = 46.7295
-margin_bottom = -9.38489
+margin_left = -12.5
+margin_top = -94.0
+margin_right = 12.5
+margin_bottom = -80.0
 custom_fonts/font = ExtResource( 4 )
 text = "Energy:"
 __meta__ = {
@@ -139,13 +148,17 @@ __meta__ = {
 }
 
 [node name="energy_bar" type="ProgressBar" parent="hud"]
+anchor_left = 0.5
 anchor_top = 1.0
+anchor_right = 0.5
 anchor_bottom = 1.0
-margin_left = 43.0
-margin_top = -21.0
-margin_right = 79.0
-margin_bottom = -7.0
-theme = SubResource( 8 )
+margin_left = -170.0
+margin_top = -70.0
+margin_right = 170.0
+margin_bottom = -56.0
+theme = SubResource( 7 )
+custom_styles/fg = SubResource( 9 )
+custom_styles/bg = SubResource( 10 )
 custom_fonts/font = ExtResource( 4 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -153,13 +166,11 @@ __meta__ = {
 
 [node name="wormhole_status" type="Label" parent="hud"]
 anchor_left = 0.5
-anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 1.0
-margin_left = -59.1892
-margin_top = -19.8108
-margin_right = -47.1892
-margin_bottom = -5.81079
+margin_left = -6.0
+margin_top = 56.0
+margin_right = 6.0
+margin_bottom = 70.0
 custom_fonts/font = ExtResource( 4 )
 text = "null"
 align = 1
@@ -168,7 +179,7 @@ __meta__ = {
 }
 
 [node name="CollisionShape" type="CollisionShape" parent="."]
-shape = SubResource( 7 )
+shape = SubResource( 8 )
 
 [node name="energy_recharge_timer" type="Timer" parent="."]
 wait_time = 0.068
@@ -180,6 +191,9 @@ autostart = true
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.7085 )
 visible = false
 radius = 0.207513
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
 [connection signal="body_entered" from="." to="." method="_on_player_body_entered"]
 [connection signal="timeout" from="energy_recharge_timer" to="." method="_on_energy_recharge_timer_timeout"]
 

@@ -18,7 +18,7 @@ tracks/0/keys = {
 "values": [ Vector3( 0, 94.209, 163.22 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "shaking"
 step = 0.0666667
 tracks/0/type = "value"
@@ -28,27 +28,26 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.0666667, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667, 0.533333, 0.6, 0.666667, 0.733333, 0.8, 0.866667 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.0666667, 0.067, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667, 0.533333, 0.6, 0.666667, 0.733333, 0.8, 0.866667 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 0,
-"values": [ Vector3( 0.5, 94.209, 163.22 ), Vector3( -0.5, 94.209, 163.22 ), Vector3( 0.4, 94.209, 163.22 ), Vector3( -0.3, 94.209, 163.22 ), Vector3( 0.2, 94.209, 163.22 ), Vector3( -0.1, 94.209, 163.22 ), Vector3( 0.05, 94.209, 163.22 ), Vector3( -0.1, 94.209, 163.22 ), Vector3( 0.2, 94.209, 163.22 ), Vector3( -0.02, 94.209, 163.22 ), Vector3( 0.02, 94.209, 163.22 ), Vector3( -0.05, 94.209, 163.22 ), Vector3( 0, 94.209, 163.22 ), Vector3( 0, 94.209, 163.22 ) ]
+"values": [ Vector3( 1.96954, 94.209, 163.22 ), Vector3( -2.36723, 94.209, 163.22 ), Vector3( -0.5, 94.209, 163.22 ), Vector3( 0.975032, 94.209, 163.22 ), Vector3( -1.1945, 94.209, 163.22 ), Vector3( 0.2, 94.209, 163.22 ), Vector3( -0.382193, 94.209, 163.22 ), Vector3( 0.05, 94.209, 163.22 ), Vector3( -0.1, 94.209, 163.22 ), Vector3( 0.2, 94.209, 163.22 ), Vector3( -0.02, 94.209, 163.22 ), Vector3( 0.02, 94.209, 163.22 ), Vector3( -0.05, 94.209, 163.22 ), Vector3( 0, 94.209, 163.22 ), Vector3( 0, 94.209, 163.22 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=4]
+[sub_resource type="AnimationNodeAnimation" id=3]
 animation = "shaking"
 
-[sub_resource type="AnimationNodeAnimation" id=5]
+[sub_resource type="AnimationNodeAnimation" id=4]
 animation = "basis"
 
-[sub_resource type="AnimationNodeOneShot" id=6]
+[sub_resource type="AnimationNodeOneShot" id=5]
 
-[sub_resource type="AnimationNodeBlendTree" id=2]
-graph_offset = Vector2( -411, -24 )
-nodes/Animation/node = SubResource( 5 )
+[sub_resource type="AnimationNodeBlendTree" id=6]
+nodes/Animation/node = SubResource( 4 )
 nodes/Animation/position = Vector2( -200, 40 )
-"nodes/Animation 2/node" = SubResource( 4 )
+"nodes/Animation 2/node" = SubResource( 3 )
 "nodes/Animation 2/position" = Vector2( -200, 200 )
-nodes/OneShot/node = SubResource( 6 )
+nodes/OneShot/node = SubResource( 5 )
 nodes/OneShot/position = Vector2( 20, 80 )
 nodes/output/position = Vector2( 640, 140 )
 node_connections = [ "output", 0, "OneShot", "OneShot", 0, "Animation", "OneShot", 1, "Animation 2" ]
@@ -68,10 +67,10 @@ far = 1000.0
 playback_process_mode = 0
 method_call_mode = 1
 anims/basis = SubResource( 1 )
-anims/shaking = SubResource( 3 )
+anims/shaking = SubResource( 2 )
 
 [node name="AnimationTree" type="AnimationTree" parent="Camera"]
-tree_root = SubResource( 2 )
+tree_root = SubResource( 6 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/OneShot/active = false
